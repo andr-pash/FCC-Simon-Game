@@ -1,0 +1,100 @@
+@font-face
+  font-family: 'ocr-a'
+  src: url('../fonts/ocraext.ttf')
+  format: 'ttf'
+  font-weight: normal
+  font-style: normal
+
+body,
+h1,
+h2,
+h3
+  margin: 0
+  padding: 0
+
+body
+  height: 100vh
+  // width: 100vw
+  background-color: rgb(219,219,219)
+  background: linear-gradient(to bottom, rgba(219,219,219,1) 50%,rgba(14,14,14,1) 100%)
+
+.container
+  display: flex
+  justify-content: center
+  align-content: space-between
+  flex-wrap: wrap
+  height: 100vh
+
+.header
+  width: 100%
+  text-align: center
+  font-family: 'ocr-a'
+  font-weight: 100
+  font-size: 15vh
+  letter-spacing: -10px
+  word-spacing: -20px
+
+#simon
+  border-bottom: 5px solid black
+
+.sm-txt
+  font-size: 5vh
+  letter-spacing: -8px
+  word-spacing: -7px
+
+.logo
+  height: 3.5vh
+
+.game
+  height: 70vh
+  margin-top: 10vh
+
+.btn:hover
+  transform: scale(1.05)
+.btn
+  cursor: pointer
+  transform: scale(1)
+  transform-origin: center
+  transition: all 0.1s ease-in-out
+
+#blue:active
+  fill: lighten(rgb(38,123,217), 15%) !important
+
+#green:active
+  fill: lighten(rgb(74,230,25), 15%) !important
+
+#red:active
+  fill: lighten(rgb(230,25,25), 15%) !important
+
+#yellow:active
+  fill: lighten(rgb(206,217,38), 15%) !important
+
+.activated-blue
+  fill: lighten(rgb(38,123,217), 15%) !important
+.activated-green
+  fill: lighten(rgb(74,230,25), 15%) !important
+.activated-red
+  fill: lighten(rgb(230,25,25), 15%) !important
+.activated-yellow
+  fill: lighten(rgb(206,217,38), 15%) !important
+
+
+#disp-text
+  cursor: none
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+
+
+.footer
+  position: fixed
+  right: 5vw
+  bottom: 0
+  font-family: sans-serif
+  font-size: 2vh
+  font-weight: 100
+  color: white
+  a
+    color: darken(white, 20%)
+    text-decoration: none
+    cursor: pointer

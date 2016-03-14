@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "ocr-a";
+  src: url("../fonts/ocraext.ttf");
+  format: "ttf";
+  font-weight: normal;
+  font-style: normal; }
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0; }
+
+body {
+  height: 100vh;
+  background-color: #dbdbdb;
+  background: linear-gradient(to bottom, #dbdbdb 50%, #0e0e0e 100%); }
+
+.container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: space-between;
+  -ms-flex-line-pack: justify;
+  align-content: space-between;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  height: 100vh; }
+
+.header {
+  width: 100%;
+  text-align: center;
+  font-family: "ocr-a";
+  font-weight: 100;
+  font-size: 15vh;
+  letter-spacing: -10px;
+  word-spacing: -20px; }
+
+#simon {
+  border-bottom: 5px solid black; }
+
+.sm-txt {
+  font-size: 5vh;
+  letter-spacing: -8px;
+  word-spacing: -7px; }
+
+.logo {
+  height: 3.5vh; }
+
+.game {
+  height: 70vh;
+  margin-top: 10vh; }
+
+.btn:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05); }
+
+.btn {
+  cursor: pointer;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  transition: all 0.1s ease-in-out; }
+
+#blue:active {
+  fill: #67a3e4 !important; }
+
+#green:active {
+  fill: #80ee5e !important; }
+
+#red:active {
+  fill: #ee5e5e !important; }
+
+#yellow:active {
+  fill: #dde467 !important; }
+
+.activated-blue {
+  fill: #67a3e4 !important; }
+
+.activated-green {
+  fill: #80ee5e !important; }
+
+.activated-red {
+  fill: #ee5e5e !important; }
+
+.activated-yellow {
+  fill: #dde467 !important; }
+
+#disp-text {
+  cursor: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none; }
+
+.footer {
+  position: fixed;
+  right: 5vw;
+  bottom: 0;
+  font-family: sans-serif;
+  font-size: 2vh;
+  font-weight: 100;
+  color: white; }
+  .footer a {
+    color: #cccccc;
+    text-decoration: none;
+    cursor: pointer; }
