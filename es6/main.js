@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // handler in case of wrong input
     } else if (seq[currentStep] !== selectedColor && state === 'running') {
-      console.log('wrong input:' + currentStep);
 
       //if in strict mode reset seqLength to 1
       if (strict === true) {
@@ -160,12 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 
-
-
-
   seq = createSeq(GAME_LENGTH);
 
-  //
+  
   let colorBtns = document.getElementsByClassName('leave');
   for (let i = 0; i < colorBtns.length; i++) {
     colorBtns[i].addEventListener('mousedown', userInput);
