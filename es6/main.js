@@ -3,14 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
   let selectedColor = '';
   let seq = [];
   let seqLength = 1;
-  const GAME_LENGTH = 2;
   let lightUpDuration = 400;
   let stepDuration = 1000;
   let state = 'paused';
   let strict = false;
   let currentStep = 0;
   let colors = ['green', 'red', 'yellow', 'blue'];
-
+  const GAME_LENGTH = 2;
+  const FREQ_GREEN = 440;
+  const FREQ_RED = 349.23;
+  const FREQ_BLUE = 220;
+  const FREQ_YELLOW = 329.63;
 
   // Audio Set-Up - needs fix for iOs
   let audioCtx = new(window.AudioContext || window.webkitAudioContext)();
@@ -44,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // game play Functions
-  function reset(){
+  function reset() {
     seq = createSeq(GAME_LENGTH);
     seqLength = 1;
     currentStep = 0;
@@ -52,12 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDisp(seqLength);
   }
 
-   function playSeq(){
+  function playSeq() {
     if (state === 'running') {
       let i = 0;
       let counter;
       counter = setInterval(function() {
-        lightButton(seq[i], lightUpDuration);
+        fireButton(seq[i], lightUpDuration);
         i++;
         if (i === seqLength) {
           clearInterval(counter);
@@ -66,9 +69,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function play(){
-    playSeq();
-    updateDisp(seqLength);
+  function play() {
+
+    // reset and notify!!! if game is won
+    if (seqLength > GAME_LENGTH) {
+      updateDisp(':)');
+      setTimeout(reset, 1000);
+
+    // default behaviour
+    } else {
+      playSeq();
+      updateDisp(seqLength);
+    }
   }
 
   function startGame() {
@@ -81,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-  function handle(id, dur){
+  function handle(id, dur) {
     let el;
     el = document.getElementById(id).classList;
-    el.add('activated-'+ id);
+    el.add('activated-' + id);
     gain.gain.value = 1;
     setTimeout(function() {
       el.remove('activated-' + id);
@@ -94,32 +106,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }, dur);
   }
 
-  function lightButton(buttonID, duration) {
+  function fireButton(buttonID, duration) {
     let id = buttonID;
     let dur = duration;
     switch (buttonID) {
       case 'blue':
-        osc.frequency.value = 220;
+        osc.frequency.value = FREQ_BLUE;
         handle(id, dur);
         break;
       case 'green':
-        osc.frequency.value = 440;
-        handle(id,dur);
+        osc.frequency.value = FREQ_GREEN;
+        handle(id, dur);
         break;
       case 'red':
-        osc.frequency.value = 300;
-        handle(id,dur);
+        osc.frequency.value = FREQ_RED;
+        handle(id, dur);
         break;
       default:
-        osc.frequency.value = 350;
-        handle(id,dur);
+        osc.frequency.value = FREQ_YELLOW;
+        handle(id, dur);
         break;
     }
   }
 
   function userInput() {
     selectedColor = this.id;
-    lightButton(selectedColor, lightUpDuration);
+    fireButton(selectedColor, lightUpDuration);
 
     // handler in case of correct Input
     if (seq[currentStep] === selectedColor && state === 'running') {
@@ -131,12 +143,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(play, 1000);
       }
 
-    // handler in case of wrong input
-  } else if (seq[currentStep] !== selectedColor && state === 'running') {
+      // handler in case of wrong input
+    } else if (seq[currentStep] !== selectedColor && state === 'running') {
       console.log('wrong input:' + currentStep);
 
       //if in strict mode reset seqLength to 1
-      if(strict === true){
+      if (strict === true) {
         seqLength = 1;
       }
       currentStep = 0;
@@ -144,12 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       //play sound to indicate wrong input + display
       setTimeout(play, 1000);
-    }
-
-    // reset and notify!!! if game is won
-    if (seqLength > GAME_LENGTH) {
-      updateDisp(':)');
-      setTimeout(reset, 1000);
     }
   }
 
@@ -172,11 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
   playBtn.addEventListener('click', startGame);
 
   let strictBtn = document.getElementById('strict');
-  strictBtn.addEventListener('click', function(){
-    if(strict === false && state === 'paused'){
+  strictBtn.addEventListener('click', function() {
+    if (strict === false && state === 'paused') {
       strict = true;
       strictBtn.classList.add('activated-strict');
-    } else if(strict === true && state === 'paused'){
+    } else if (strict === true && state === 'paused') {
       strict = false;
       strictBtn.classList.remove('activated-strict');
     }

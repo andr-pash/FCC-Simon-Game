@@ -5,13 +5,17 @@ document.addEventListener('DOMContentLoaded', function () {
   var selectedColor = '';
   var seq = [];
   var seqLength = 1;
-  var GAME_LENGTH = 2;
   var lightUpDuration = 400;
   var stepDuration = 1000;
   var state = 'paused';
   var strict = false;
   var currentStep = 0;
   var colors = ['green', 'red', 'yellow', 'blue'];
+  var GAME_LENGTH = 2;
+  var FREQ_GREEN = 440;
+  var FREQ_RED = 349.23;
+  var FREQ_BLUE = 220;
+  var FREQ_YELLOW = 329.63;
 
   // Audio Set-Up - needs fix for iOs
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -58,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var i = 0;
         var counter = void 0;
         counter = setInterval(function () {
-          lightButton(seq[i], lightUpDuration);
+          fireButton(seq[i], lightUpDuration);
           i++;
           if (i === seqLength) {
             clearInterval(counter);
@@ -69,8 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function play() {
-    playSeq();
-    updateDisp(seqLength);
+
+    // reset and notify!!! if game is won
+    if (seqLength > GAME_LENGTH) {
+      updateDisp(':)');
+      setTimeout(reset, 1000);
+
+      // default behaviour
+    } else {
+        playSeq();
+        updateDisp(seqLength);
+      }
   }
 
   function startGame() {
@@ -94,24 +107,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }, dur);
   }
 
-  function lightButton(buttonID, duration) {
+  function fireButton(buttonID, duration) {
     var id = buttonID;
     var dur = duration;
     switch (buttonID) {
       case 'blue':
-        osc.frequency.value = 220;
+        osc.frequency.value = FREQ_BLUE;
         handle(id, dur);
         break;
       case 'green':
-        osc.frequency.value = 440;
+        osc.frequency.value = FREQ_GREEN;
         handle(id, dur);
         break;
       case 'red':
-        osc.frequency.value = 300;
+        osc.frequency.value = FREQ_RED;
         handle(id, dur);
         break;
       default:
-        osc.frequency.value = 350;
+        osc.frequency.value = FREQ_YELLOW;
         handle(id, dur);
         break;
     }
@@ -119,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function userInput() {
     selectedColor = this.id;
-    lightButton(selectedColor, lightUpDuration);
+    fireButton(selectedColor, lightUpDuration);
 
     // handler in case of correct Input
     if (seq[currentStep] === selectedColor && state === 'running') {
@@ -145,12 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
         //play sound to indicate wrong input + display
         setTimeout(play, 1000);
       }
-
-    // reset and notify!!! if game is won
-    if (seqLength > GAME_LENGTH) {
-      updateDisp(':)');
-      setTimeout(reset, 1000);
-    }
   }
 
   seq = createSeq(GAME_LENGTH);
