@@ -81,60 +81,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // function handle(buttonID){
-  //   el = document.getElementById().classList;
-  // }
+  function handle(id, dur) {
+    var el = void 0;
+    el = document.getElementById(id).classList;
+    el.add('activated-' + id);
+    gain.gain.value = 1;
+    setTimeout(function () {
+      el.remove('activated-' + id);
+    }, dur);
+    setTimeout(function () {
+      gain.gain.value = 0;
+    }, dur);
+  }
 
   function lightButton(buttonID, duration) {
-    var el = void 0;
+    var id = buttonID;
+    var dur = duration;
     switch (buttonID) {
       case 'blue':
-        el = document.getElementById('blue').classList;
-        el.add('activated-blue');
         osc.frequency.value = 220;
-        gain.gain.value = 1;
-        setTimeout(function () {
-          el.remove('activated-blue');
-        }, duration);
-        setTimeout(function () {
-          gain.gain.value = 0;
-        }, duration);
+        handle(id, dur);
         break;
       case 'green':
-        el = document.getElementById('green').classList;
-        el.add('activated-green');
         osc.frequency.value = 440;
-        gain.gain.value = 1;
-        setTimeout(function () {
-          el.remove('activated-green');
-        }, duration);
-        setTimeout(function () {
-          gain.gain.value = 0;
-        }, duration);
+        handle(id, dur);
         break;
       case 'red':
-        el = document.getElementById('red').classList;
-        el.add('activated-red');
         osc.frequency.value = 300;
-        gain.gain.value = 1;
-        setTimeout(function () {
-          el.remove('activated-red');
-        }, duration);
-        setTimeout(function () {
-          gain.gain.value = 0;
-        }, duration);
+        handle(id, dur);
         break;
       default:
-        el = document.getElementById('yellow').classList;
-        el.add('activated-yellow');
         osc.frequency.value = 350;
-        gain.gain.value = 1;
-        setTimeout(function () {
-          el.remove('activated-yellow');
-        }, duration);
-        setTimeout(function () {
-          gain.gain.value = 0;
-        }, duration);
+        handle(id, dur);
         break;
     }
   }
