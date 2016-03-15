@@ -5,17 +5,16 @@ document.addEventListener('DOMContentLoaded', function () {
   var selectedColor = '';
   var seq = [];
   var seqLength = 1;
-  var GAME_LENGTH = 5;
+  var GAME_LENGTH = 2;
   var lightUpDuration = 400;
   var stepDuration = 1000;
   var state = 'paused';
+  var strict = false;
   var currentStep = 0;
-
   var colors = ['green', 'red', 'yellow', 'blue'];
 
   // Audio Set-Up - needs fix for iOs
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
   var osc = audioCtx.createOscillator();
   osc.type = 'sine';
   osc.frequency.value = 220;
@@ -44,12 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
     return arr;
   }
 
+  // game play Functions
   function reset() {
     seq = createSeq(GAME_LENGTH);
     seqLength = 1;
     currentStep = 0;
-    updateDisp(seqLength);
     state = 'paused';
+    updateDisp(seqLength);
   }
 
   function playSeq() {
@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', function () {
       play();
     }
   }
+
+  // function handle(buttonID){
+  //   el = document.getElementById().classList;
+  // }
 
   function lightButton(buttonID, duration) {
     var el = void 0;
@@ -154,6 +158,9 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('wrong input:' + currentStep);
 
         //if in strict mode reset seqLength to 1
+        if (strict === true) {
+          seqLength = 1;
+        }
         currentStep = 0;
         updateDisp('!!');
 
@@ -181,4 +188,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var playBtn = document.getElementById('play');
   playBtn.addEventListener('click', startGame);
+
+  var strictBtn = document.getElementById('strict');
+  strictBtn.addEventListener('click', function () {
+    if (strict === false && state === 'paused') {
+      strict = true;
+      strictBtn.classList.add('activated-strict');
+    } else if (strict === true && state === 'paused') {
+      strict = false;
+      strictBtn.classList.remove('activated-strict');
+    }
+  });
 });

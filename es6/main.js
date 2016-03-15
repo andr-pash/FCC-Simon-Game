@@ -3,19 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
   let selectedColor = '';
   let seq = [];
   let seqLength = 1;
-  const GAME_LENGTH = 5;
+  const GAME_LENGTH = 2;
   let lightUpDuration = 400;
   let stepDuration = 1000;
   let state = 'paused';
+  let strict = false;
   let currentStep = 0;
-
   let colors = ['green', 'red', 'yellow', 'blue'];
-
 
 
   // Audio Set-Up - needs fix for iOs
   let audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-
   let osc = audioCtx.createOscillator();
   osc.type = 'sine';
   osc.frequency.value = 220;
@@ -44,12 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
     return arr;
   }
 
+
+  // game play Functions
   function reset(){
     seq = createSeq(GAME_LENGTH);
     seqLength = 1;
     currentStep = 0;
-    updateDisp(seqLength);
     state = 'paused';
+    updateDisp(seqLength);
   }
 
    function playSeq(){
@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+  // function handle(buttonID){
+  //   el = document.getElementById().classList;
+  // }
 
   function lightButton(buttonID, duration) {
     let el;
@@ -155,6 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('wrong input:' + currentStep);
 
       //if in strict mode reset seqLength to 1
+      if(strict === true){
+        seqLength = 1;
+      }
       currentStep = 0;
       updateDisp('!!');
 
@@ -186,6 +192,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   let playBtn = document.getElementById('play');
   playBtn.addEventListener('click', startGame);
+
+  let strictBtn = document.getElementById('strict');
+  strictBtn.addEventListener('click', function(){
+    if(strict === false && state === 'paused'){
+      strict = true;
+      strictBtn.classList.add('activated-strict');
+    } else if(strict === true && state === 'paused'){
+      strict = false;
+      strictBtn.classList.remove('activated-strict');
+    }
+  });
 
 
 
