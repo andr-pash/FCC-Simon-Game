@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let state = 'paused';
   let strict = false;
   let currentStep = 0;
-  let colors = ['green', 'red', 'yellow', 'blue'];
-  const GAME_LENGTH = 2;
+  const COLORS = ['green', 'red', 'yellow', 'blue'];
+  const GAME_LENGTH = 20;
   const FREQ_GREEN = 440;
   const FREQ_RED = 349.23;
   const FREQ_BLUE = 220;
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function createSeq(length) {
     let arr = [];
     for (let i = 0; i < length; i++) {
-      arr.push(colors[randomInt(4)]);
+      arr.push(COLORS[randomInt(4)]);
     }
     return arr;
   }
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   seq = createSeq(GAME_LENGTH);
 
-  
+
   let colorBtns = document.getElementsByClassName('leave');
   for (let i = 0; i < colorBtns.length; i++) {
     colorBtns[i].addEventListener('mousedown', userInput);
@@ -183,13 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
       strictBtn.classList.remove('activated-strict');
     }
   });
-
-
-
-
-
-
-
 
 
 });

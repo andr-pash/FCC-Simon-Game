@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var state = 'paused';
   var strict = false;
   var currentStep = 0;
-  var colors = ['green', 'red', 'yellow', 'blue'];
-  var GAME_LENGTH = 2;
+  var COLORS = ['green', 'red', 'yellow', 'blue'];
+  var GAME_LENGTH = 20;
   var FREQ_GREEN = 440;
   var FREQ_RED = 349.23;
   var FREQ_BLUE = 220;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function createSeq(length) {
     var arr = [];
     for (var i = 0; i < length; i++) {
-      arr.push(colors[randomInt(4)]);
+      arr.push(COLORS[randomInt(4)]);
     }
     return arr;
   }
